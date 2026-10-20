@@ -1,0 +1,33 @@
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Content-Type': 'application/json' };
+const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: cors });
+const allowed = new Set(['pending','accepted','declined']);
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
+  if (req.method !== 'POST') return json({ error: 'Método no permitido.' }, 405);
+  const url = Deno.env.get('SUPABASE_URL');
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  if (!url || !serviceKey) return json({ error: 'La función no está configurada en el servidor.' }, 500);
+  const db = createClient(url, serviceKey, { auth: { persistSession: false } });
+  let body: Record<string, unknown>;
+  try { body = await req.json(); } catch { return json({ error: 'Solicitud inválida.' }, 400); }
+  const token = typeof body.token === 'string' ? body.token : '';
+  if (!/^[a-f0-9]{48}$/.test(token)) return json({ error: 'El enlace personal no es válido. Verifica que abriste el enlace completo.' }, 400);
+  const { data: guest, error } = await db.from('guests').select('id,full_name,invite_token,max_ceremony_companions,max_party_companions,ceremony_status,ceremony_companions,party_status,party_companions').eq('invite_token', token).maybeSingle();
+  if (error) return json({ error: 'No se pudo consultar la invitación.' }, 500);
+  if (!guest) return json({ error: 'No encontramos esta invitación. Pide a la anfitriona que revise tu enlace.' }, 404);
+  const { data: eventRow } = await db.from('event_settings').select('settings').eq('id', 1).maybeSingle();
+  const event = eventRow?.settings ?? {};
+  if (body.action === 'load') return json({ guest, event });
+  if (body.action !== 'rsvp') return json({ error: 'Acción no válida.' }, 400);
+  const ceremonyStatus = String(body.ceremony_status ?? 'pending');
+  const partyStatus = String(body.party_status ?? 'pending');
+  const ceremonyCompanions = Number(body.ceremony_companions ?? 0);
+  const partyCompanions = Number(body.party_companions ?? 0);
+  if (!allowed.has(ceremonyStatus) || !allowed.has(partyStatus)) return json({ error: 'Selecciona una respuesta válida para cada evento.' }, 400);
+  if (!Number.isInteger(ceremonyCompanions) || ceremonyCompanions < 0 || ceremonyCompanions > guest.max_ceremony_companions) return json({ error: 'La cantidad de acompañantes para el acto supera el límite de tu invitación.' }, 400);
+  if (!Number.isInteger(partyCompanions) || partyCompanions < 0 || partyCompanions > guest.max_party_companions) return json({ error: 'La cantidad de acompañantes para la celebración supera el límite de tu invitación.' }, 400);
+  const { error: updateError } = await db.from('guests').update({ ceremony_status: ceremonyStatus, ceremony_companions: ceremonyStatus === 'accepted' ? ceremonyCompanions : 0, party_status: partyStatus, party_companions: partyStatus === 'accepted' ? partyCompanions : 0, updated_at: new Date().toISOString() }).eq('id', guest.id);
+  if (updateError) return json({ error: 'No pudimos guardar tu respuesta. Intenta otra vez.' }, 500);
+  return json({ message: '¡Tu respuesta fue guardada correctamente! Gracias por confirmar.' });
+});

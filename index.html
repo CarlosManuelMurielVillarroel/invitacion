@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081a33"><meta name="description" content="Invitación virtual a la graduación de Paola García Olguin.">
+  <title>Graduación · Paola García Olguin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="invitation-body">
+  <div class="stars" aria-hidden="true"></div>
+  <main class="invitation-shell">
+    <div class="topline"><span>UNIVERSIDAD LATINOAMERICANA ULAT</span><span class="topline-mark">✦</span></div>
+    <section class="hero-card">
+      <p class="eyebrow">UN NUEVO CAPÍTULO COMIENZA</p>
+      <div class="portrait-frame"><img id="graduate-photo" src="assets/paola-placeholder.svg" alt="Fotografía provisional de la graduada"><span class="portrait-ring"></span></div>
+      <p class="presented">Con mucha alegría, te invito a celebrar</p>
+      <h1>Paola García<br><span>Olguin</span></h1>
+      <div class="ornament"><span></span> ✦ <span></span></div>
+      <p class="invite-copy">el logro de una meta y el comienzo de nuevos sueños.</p>
+      <div class="degree-label">ACTO DE GRADUACIÓN</div>
+      <div class="event-details">
+        <div class="detail"><span class="detail-icon">◷</span><div><small>FECHA Y HORA</small><strong>Sábado, 24 de octubre de 2026</strong><span>14:30 h</span></div></div>
+        <div class="detail"><span class="detail-icon">⌖</span><div><small>LUGAR</small><strong>Auditorio “U.E. LATINOAMERICANA”</strong><span>Av. Rubén Ferrufino, zona Saca Saca</span></div></div>
+      </div>
+      <a class="map-link" id="map-link" href="https://www.google.com/maps/search/?api=1&query=Av.+Ruben+Ferrufino+zona+Saca+Saca+Bolivia" target="_blank" rel="noopener">Ver ubicación en el mapa ↗</a>
+      <div class="rsvp-area" id="rsvp-area">
+        <div class="section-divider"><span></span><b>ACOMPAÑANOS</b><span></span></div>
+        <p class="rsvp-intro" id="guest-greeting">Tu presencia hará este día aún más especial.</p>
+        <div id="loading-message" class="notice">Cargando tu invitación…</div>
+        <form id="rsvp-form" class="rsvp-form" hidden>
+          <label for="guest-name">Nombre completo</label><input id="guest-name" name="guest-name" autocomplete="name" readonly>
+          <div class="rsvp-event"><div><strong>Acto de graduación</strong><small>24 de octubre · 14:30 h</small></div><select id="ceremony-status"><option value="pending">Aún no lo sé</option><option value="accepted">Asistiré</option><option value="declined">No podré asistir</option></select></div>
+          <label for="ceremony-companions">Acompañantes para el acto <span id="ceremony-limit"></span></label><input type="number" id="ceremony-companions" min="0" value="0">
+          <div class="rsvp-event"><div><strong>Celebración posterior</strong><small id="party-details">Detalles por confirmar</small></div><select id="party-status"><option value="pending">Aún no lo sé</option><option value="accepted">Asistiré</option><option value="declined">No podré asistir</option></select></div>
+          <label for="party-companions">Acompañantes para la celebración <span id="party-limit"></span></label><input type="number" id="party-companions" min="0" value="0">
+          <button type="submit" class="primary-button" id="save-rsvp">Confirmar respuesta</button>
+          <p id="rsvp-feedback" class="feedback" role="status"></p>
+        </form>
+        <div id="generic-message" class="notice" hidden>Esta es una invitación general. Para confirmar asistencia, solicita tu enlace personal a la anfitriona.</div>
+      </div>
+      <div class="celebration-note"><span>✧</span><div><b>Y después… ¡sigamos celebrando!</b><p id="celebration-copy">Los detalles de la celebración posterior se comunicarán más adelante.</p></div></div>
+      <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false"><span id="music-symbol">♫</span><span id="music-label">Activar música</span></button>
+      <audio id="background-music" loop preload="none" src="assets/musica.mp3"></audio>
+      <p class="footer-note">UN SUEÑO CUMPLIDO · UN FUTURO POR DESCUBRIR</p>
+    </section>
+    <footer class="site-footer">Con cariño, Paola García Olguin <span>✦</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script><script src="app.js"></script>
+</body></html>
