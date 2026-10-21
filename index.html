@@ -40,7 +40,17 @@
       </div>
       <div class="celebration-note"><span>✧</span><div><b>Y después… ¡sigamos celebrando!</b><p id="celebration-copy">Los detalles de la celebración posterior se comunicarán más adelante.</p></div></div>
       <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false"><span id="music-symbol">♫</span><span id="music-label">Activar música</span></button>
-      <audio id="background-music" loop preload="none" src="assets/musica.mp3"></audio>
+      <audio id="background-music" loop preload="auto" src="assets/musica-ultima.mp3"></audio>
+      <script>
+        // Inicia la música cuando el invitado haga el primer clic o toque en la pantalla
+        document.addEventListener('click', function() {
+          var music = document.getElementById('background-music');
+          if (music.paused) {
+            music.play();
+          }
+        }, { once: true });
+      </script>
+
       <p class="footer-note">UN SUEÑO CUMPLIDO · UN FUTURO POR DESCUBRIR</p>
     </section>
     <footer class="site-footer">Con cariño, Paola García Olguin <span>✦</span></footer>
