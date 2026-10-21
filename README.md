@@ -1,6 +1,6 @@
 # Invitación virtual — Paola García Olguin
 
-Proyecto inicial completo: invitación pública, panel privado, respuestas por invitado, QR individual y exportación a Excel. Está preparado para Supabase + Vercel. El código se entrega sin credenciales; primero hay que configurar y publicar los servicios.
+Proyecto inicial completo: invitación pública, panel privado, registro público por nombre completo, respuestas por invitado, QR individual y exportación a Excel. Está preparado para Supabase + Vercel. El código se entrega sin credenciales; primero hay que configurar y publicar los servicios.
 
 ## Contenido
 - `index.html`, `styles.css`, `app.js`: invitación pública adaptable a móvil/PC.
@@ -63,7 +63,7 @@ También puedes probar localmente con un servidor estático, por ejemplo `python
 1. Entra en `admin.html` y accede.
 2. Crea un registro por invitado, definiendo los máximos de acompañantes para cada evento.
 3. Copia el enlace individual y envíalo por WhatsApp. Descarga el QR si quieres imprimirlo.
-4. El invitado puede confirmar acto y celebración por separado. El panel refleja las respuestas.
+4. Cualquier persona que abra la invitación puede escribir su nombre completo, indicar asistencia al acto y a la celebración, y registrar de 0 a 5 acompañantes por evento. Se crea un enlace individual para que pueda volver a editar sus respuestas. El panel refleja los registros públicos.
 5. Pulsa **Exportar Excel** para descargar la lista.
 6. Edita los datos del evento desde el panel cuando se confirme la celebración posterior.
 
@@ -72,3 +72,7 @@ También puedes probar localmente con un servidor estático, por ejemplo `python
 - La fecha del acto está preconfigurada para el sábado 24 de octubre de 2026 a las 14:30.
 - El panel es privado por autenticación y RLS. No compartas la contraseña de administrador ni la clave service role.
 - Los servicios de terceros/CDN requieren conexión a Internet. Revisa las condiciones y límites gratuitos vigentes de Supabase, Vercel y los proveedores de recursos.
+
+
+## Registro público de invitados
+La invitación general permite que cada persona escriba su nombre completo y complete el formulario sin necesitar un enlace previo. Al guardar, se crea su registro en `guests` y se añade un token personal a la URL. Los registros públicos admiten hasta 5 acompañantes para cada evento. Si deseas limitar este acceso a personas invitadas, cambia el flujo a invitaciones previamente creadas desde el panel.

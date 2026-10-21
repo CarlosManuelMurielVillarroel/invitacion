@@ -22,13 +22,13 @@
         <div class="detail"><span class="detail-icon">◷</span><div><small>FECHA Y HORA</small><strong>Sábado, 24 de octubre de 2026</strong><span>14:30 h</span></div></div>
         <div class="detail"><span class="detail-icon">⌖</span><div><small>LUGAR</small><strong>Auditorio “U.E. LATINOAMERICANA”</strong><span>Av. Rubén Ferrufino, zona Saca Saca</span></div></div>
       </div>
-      <a class="map-link" id="map-link" href="https://maps.app.goo.gl/fmd588pnK6RHL4eMA" target="_blank" rel="noopener">Ver ubicación en el mapa ↗</a>
+      <a class="map-link" id="map-link" href="https://maps.app.goo.gl/ktKwdjTMxQR9M3XV8" target="_blank" rel="noopener">Ver ubicación en el mapa ↗</a>
       <div class="rsvp-area" id="rsvp-area">
         <div class="section-divider"><span></span><b>ACOMPAÑANOS</b><span></span></div>
         <p class="rsvp-intro" id="guest-greeting">Tu presencia hará este día aún más especial.</p>
         <div id="loading-message" class="notice">Cargando tu invitación…</div>
         <form id="rsvp-form" class="rsvp-form" hidden>
-          <label for="guest-name">Nombre completo</label><input id="guest-name" name="guest-name" autocomplete="name" readonly>
+          <label for="guest-name">Nombre completo</label><input id="guest-name" name="guest-name" autocomplete="name" placeholder="Escribe tu nombre y apellidos" maxlength="120" required>
           <div class="rsvp-event"><div><strong>Acto de graduación</strong><small>24 de octubre · 14:30 h</small></div><select id="ceremony-status"><option value="pending">Aún no lo sé</option><option value="accepted">Asistiré</option><option value="declined">No podré asistir</option></select></div>
           <label for="ceremony-companions">Acompañantes para el acto <span id="ceremony-limit"></span></label><input type="number" id="ceremony-companions" min="0" value="0">
           <div class="rsvp-event"><div><strong>Celebración posterior</strong><small id="party-details">Detalles por confirmar</small></div><select id="party-status"><option value="pending">Aún no lo sé</option><option value="accepted">Asistiré</option><option value="declined">No podré asistir</option></select></div>
@@ -36,20 +36,11 @@
           <button type="submit" class="primary-button" id="save-rsvp">Confirmar respuesta</button>
           <p id="rsvp-feedback" class="feedback" role="status"></p>
         </form>
-        <div id="generic-message" class="notice" hidden>Esta es una invitación general. Para confirmar asistencia, solicita tu enlace personal a la anfitriona.</div>
+        <div id="generic-message" class="notice" hidden>Escribe tu nombre completo y completa tus respuestas para registrar tu asistencia.</div>
       </div>
       <div class="celebration-note"><span>✧</span><div><b>Y después… ¡sigamos celebrando!</b><p id="celebration-copy">Los detalles de la celebración posterior se comunicarán más adelante.</p></div></div>
       <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false"><span id="music-symbol">♫</span><span id="music-label">Activar música</span></button>
-      <audio id="background-music" loop preload="auto" src="assets/musica.mp3"></audio>
-      <script>
-        // Inicia la música cuando el invitado haga el primer clic o toque en la pantalla
-        document.addEventListener('click', function() {
-          var music = document.getElementById('background-music');
-          if (music.paused) {
-            music.play();
-          }
-        }, { once: true });
-      </script>
+      <audio id="background-music" loop preload="none" src="assets/musica.mp3"></audio>
       <p class="footer-note">UN SUEÑO CUMPLIDO · UN FUTURO POR DESCUBRIR</p>
     </section>
     <footer class="site-footer">Con cariño, Paola García Olguin <span>✦</span></footer>
